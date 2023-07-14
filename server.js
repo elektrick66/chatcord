@@ -21,9 +21,11 @@ const botName = "ChatCord Bot";
 
 //run when client connects
 io.on("connection", (socket) => {
+  console.log("connected");
   socket.on("joinRoom", ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
+    console.log(`${user.username} connected to ${user.room}`);
 
     //Welcome current user
     socket.emit("message", formatMessage(botName, "Welcome to chatcord")); // send to 1 client
@@ -65,4 +67,8 @@ io.on("connection", (socket) => {
 });
 const PORT = 3000 || process.env.PORT;
 
-server.listen(3000, () => console.log(`Server running on ${PORT}`));
+exports.server = server.listen(3000, () =>
+  console.log(`Server running on ${PORT}`)
+);
+
+module.exports = io;
