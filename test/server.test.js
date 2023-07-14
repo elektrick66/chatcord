@@ -39,7 +39,6 @@ test("Socket message event test", (done) => {
   socket.emit("joinRoom", (username, room));
   socket.on("message", (response) => {
     console.log(response.text);
-    // expect(response).toBe(`Received message: ${message}`);
     expect(response.text).toBe("Welcome to chatcord");
     done();
   });
